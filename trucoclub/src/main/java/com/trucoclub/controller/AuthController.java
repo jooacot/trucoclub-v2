@@ -1,5 +1,6 @@
 package com.trucoclub.controller;
 
+import com.trucoclub.dto.LoginRequest;
 import com.trucoclub.dto.RegistroRequest;
 import com.trucoclub.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -30,4 +31,16 @@ public class AuthController {
             return ResponseEntity.badRequest().body(resultado);
         }
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> loginUsuario(@RequestBody LoginRequest request) {
+        String resultado = usuarioService.login(request.getUsername(), request.getPassword());
+        if (resultado.equals("Login exitoso")) {
+            return ResponseEntity.ok(resultado);
+        }else{
+            return ResponseEntity.status(401).body(resultado);
+        }
+
+    }
+
 }

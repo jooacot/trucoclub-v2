@@ -36,4 +36,19 @@ public class UsuarioService {
         usuarioRepository.save(nuevoUsuario);
         return "OK";
     }
+
+    public String login(String username, String password){
+        var usuarioOpt = usuarioRepository.findByUsername(username);
+        if (usuarioOpt.isEmpty()) {
+            return "Usuario no encontrado";
+        }
+        Usuario usuario = usuarioOpt.get();
+        if (BCrypt.checkpw(password, usuario.getPassword())) {
+            return "Login exitoso";
+        }
+        else {
+            return "Error: Contraseña incorrecta";
+        }
+    }
+
 }
