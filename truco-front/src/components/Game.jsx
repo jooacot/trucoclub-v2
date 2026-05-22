@@ -15,7 +15,7 @@ export default function Juego() {
     const traerEstadoInicial = async () => {
       try {
         const res = await fetch(
-          `http://localhost:8080/api/truco/estado/${mesaId}`,
+          `https://trucoclub-backend.onrender.com/api/truco/estado/${mesaId}`,
         );
         if (res.ok) {
           const data = await res.json();
@@ -28,7 +28,9 @@ export default function Juego() {
 
     traerEstadoInicial();
 
-    const socket = new SockJS("http://localhost:8080/ws-truco");
+    const socket = new SockJS(
+      "https://trucoclub-backend.onrender.com/ws-truco",
+    );
     const client = new Client({
       webSocketFactory: () => socket,
       reconnectDelay: 5000,
@@ -54,7 +56,7 @@ export default function Juego() {
   const crearMesa = async () => {
     try {
       const res = await fetch(
-        "http://localhost:8080/api/truco/nueva?j1=Nacho&j2=IA&puntos=30",
+        "https://trucoclub-backend.onrender.com/api/truco/nueva?j1=Nacho&j2=IA&puntos=30",
         { method: "POST" },
       );
       const id = await res.text();
